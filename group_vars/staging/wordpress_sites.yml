@@ -3,17 +3,38 @@
 # Define accompanying passwords/secrets in group_vars/staging/vault.yml
 
 wordpress_sites:
-  example.com:
+  wi-mon-stage:
     site_hosts:
-      - staging.example.com
+      - staging.wi-mon.com
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
-    repo: git@github.com:example/example.com.git # replace with your Git repo URL
-    repo_subtree_path: site # relative path to your Bedrock/WP directory in your repo
+    admin_user: admin
+    # admin_password: (refer to vault.yml)
+    admin_email: admin@stage.wi-mon.com
+    repo: git@github.com:asksac/wimon-bedrock.git # replace with your Git repo URL
+    # repo_subtree_path: # relative path to your Bedrock/WP directory in your repo
     branch: master
     multisite:
-      enabled: false
+      enabled: true
+      subdomains: false
     ssl:
       enabled: false
       provider: letsencrypt
     cache:
       enabled: false
+    env:
+      wp_home: http://stage.wi-mon.com/us
+      wp_siteurl: http://stage.wi-mon.com/us/wp
+      wp_env: stage
+      db_name: stage_wi_mon_com
+      db_user: stagewimoncom
+      db_host: mysql.stage.wi-mon.com
+    #vars:
+      #deploy_build_after: build-after.yml
+      #deploy_finalize_after: finalize-after.yml
+
+www_root: /home/wimon/stage.wi-mon.com
+web_user: wimon
+web_group: pg5546344
+
+# this custom variable is referenced in build_after.yml
+composer_command: php ~/.php/composer/composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader --no-scripts

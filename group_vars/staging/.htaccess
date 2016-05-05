@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www.)?stage.wi-mon.com$
+RewriteCond %{REQUEST_URI} !^/wi-mon-stage/current/web/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /wi-mon-stage/current/web/$1
+RewriteCond %{HTTP_HOST} ^(www.)?stage.wi-mon.com$
+RewriteRule ^(/)?$ wi-mon-stage/current/web/index.php [L]

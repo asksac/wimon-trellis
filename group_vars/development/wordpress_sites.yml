@@ -3,15 +3,25 @@
 # Define accompanying passwords/secrets in group_vars/development/vault.yml
 
 wordpress_sites:
-  example.com:
+  wi-mon-dev:
     site_hosts:
-      - example.dev
+      - dev.wi-mon.com
     local_path: ../site # path targeting local Bedrock site directory (relative to Ansible root)
-    admin_email: admin@example.dev
+    site_title: Wi-Mon (Development)
+    admin_user: admin
+    admin_email: admin@dev.wi-mon.com
+    repo: git@github.com:asksac/wimon-bedrock.git # replace with your Git repo URL
     multisite:
-      enabled: false
+      enabled: true
+      subdomains: false
     ssl:
       enabled: false
       provider: self-signed
     cache:
       enabled: false
+    env:
+      wp_home: http://dev.wi-mon.com/us
+      wp_siteurl: http://dev.wi-mon.com/us/wp
+      wp_env: development
+      db_name: wi-mon-dev01
+      db_user: wi-mon-dev
